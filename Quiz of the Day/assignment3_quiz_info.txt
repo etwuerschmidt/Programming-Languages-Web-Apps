@@ -1,0 +1,5 @@
+History Quiz@When is Independence Day?:~July 4th/July 6th/July 10th:What year did the Civil War end?:1867/~1865/1862:Who was the first president of the United States?:Thomas Jefferson/Abraham Lincoln/~George Washington
+
+Math Quiz@What is sin(pi)?:~0/1/0.5:What is the derivative of 2x+x^3?:~2+3x^2/2x+3x^2/3x:What is the factorial of 5?:60/90/~120:What is ln(1)?:e/~0/1
+
+Computer Science Quiz@Java is what kind of programming language?:~Object Oriented/Function Oriented/Object Based:What type is the value "hello world"?:Float/Long/~String:Which of these programming languages was developed first?:Java/~C/Python:Cookies are stored where?:~Browser of Client/Server/Flash drive:Who is the best professor in the UVA CS department?:~Professor Soffa/Professor Bloomfield/Professor Horton
