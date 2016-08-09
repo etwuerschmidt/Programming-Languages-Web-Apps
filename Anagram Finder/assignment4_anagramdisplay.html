@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<title>Assignment 4</title>
+	<link rel="stylesheet" type="text/css" href="assignment4_style.css"/>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript">
+	var all_anagrams = []; //Array of all anagrams the user has entered
+	var master_word = ""; //Current word user is generating anagrams for
+	var counter = 1; //For list ordering
+	
+	//Retrieves a given word from the database and inserts it into the table
+	function getWord() {
+		$.post("assignment4_dbaccess.php", "",
+			function(data) {
+				var word = data;
+				master_word = data;
+				$("#wordTable").append("<tr><td>" + word + "</td>" + "<td class = " + master_word + "><ol>" + "</td></tr>");
+			})
+		all_anagrams = [];
+		counter = 1;
+	}
+
+	//Checks if the word 1) Is an anagram 2) Isn't a repeat word 3) Is a valid dictionary word
+	function checkWord() {
+
+		//Check #2
+		var copy_word = master_word;
+		var input = $("input:text").val();
+		if (all_anagrams.indexOf(input) != -1) {
+			alert("Word already used.");
+			$("input:text").val("");
+			return false;
+		}
+		else {
+			all_anagrams.push(input);
+		}
+		
+		//Check #1
+		for (var i = 0; i < input.length; i++) {
+			if (copy_word.indexOf(input[i]) != -1) {
+				copy_word.replace(input[i], '');
+			} else {
+				alert("Not an anagram.");
+				$("input:text").val("");
+				return false;				
+			}
+		}
+
+		//Check #3
+		$.post("assignment4_wordcheck.php", 'word=' + input).done(function(data) {
+			if (data != "x") {
+				var insertion = "<ul><li>" + counter + ". " + input + "</li></ul></br>";
+				$('.' + master_word).append(insertion);
+				$("input:text").val("");
+				counter++;
+				return false;
+			}
+			else {
+				alert("Not in dictionary.")
+				$("input:text").val("");
+				return false;
+			}
+
+		})
+		
+		return false;
+
+	}
+
+	</script>
+	<h2>Anagram Finder</h2>
+
+	<body>
+		<center><table id = "wordTable" class = "tableClass" border = "1">
+			<tr><th>Word</th><th>Anagrams</th></tr>
+		</table></center></br>
+		<form name = "anagram" method = "post" onsubmit = "return checkWord()">
+			<input type = "text" name = "guess"/>
+		</form></br>
+		<input type = "Submit" value = "Get New Word" id = "submit" onclick = "getWord()"/>
+		
+	</body>	
+
+</html>
